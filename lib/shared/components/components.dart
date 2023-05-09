@@ -100,9 +100,10 @@ Widget defaultTextFormField({
 
 Widget defaultTextButton({
   required String text,
+  required VoidCallback function
 })=>TextButton(
-    onPressed: (){}, child:
-
+    onPressed: function,
+    child:
   Text(text,
   style: const TextStyle(
     color: Color.fromRGBO(119, 117, 245, 1)
@@ -115,7 +116,7 @@ Widget defaultDropDownList({
   required List<DropdownMenuItem> dropdownItemsList,
   required String value,
   required String text,
-  required Function function(String),
+  required void function(var x),
 })=>
 
   DropdownButtonFormField(

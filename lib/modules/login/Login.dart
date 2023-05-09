@@ -1,3 +1,4 @@
+import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -66,14 +67,18 @@ class _LoginState extends State<Login> {
                         }
                       }),
                 ),
-                defaultTextButton(text: "Forgot Password?"),
+                //defaultTextButton(text: "Forgot Password?",),
                 Padding(
                   padding: const EdgeInsets.only(top:50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Don't have account?"),
-                      defaultTextButton(text: "signup")
+                      defaultTextButton(text: "signup",
+                          function: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (BuildContext context) => Signup()));
+                          }),
                     ],
                   ),
                 ),

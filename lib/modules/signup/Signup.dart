@@ -45,12 +45,10 @@ class _SignupState extends State<Signup> {
     );
   }
 
-  void dropdownCallback(String? selectedValue) {
-    if (selectedValue is String) {
+  void dropdownCallback(var selectedValue) {
       setState(() {
         _dropdownValue = selectedValue;
       });
-    }
   }
   List<DropdownMenuItem> companySizeMenu()=> const[
     DropdownMenuItem(value: "Micro", child: Text("Micro")),

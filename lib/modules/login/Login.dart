@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
+import '../home/Home.dart';
+
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -38,7 +40,8 @@ class _LoginState extends State<Login> {
                     textEditingController: emailController,
                     icon: const Icon(Icons.email_outlined),
                     text: "Email",
-                    isRequired: true),
+                    isRequired: true,
+                    isEmail: true),
                 const SizedBox(
                   height: 20,
                 ),
@@ -58,11 +61,8 @@ class _LoginState extends State<Login> {
                       text: "Login",
                       function: () {
                         if (loginKey.currentState!.validate()) {
-                          if (EmailValidator.validate(emailController.text)) {
-                            print("True");
-                          } else {
-                            print("Email Should Contain @");
-                          }
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (BuildContext context) => Home()));
                         }
                       }),
                 ),
@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Don't have account?"),
-                      defaultTextButton(text: "Register")
+                      defaultTextButton(text: "signup")
                     ],
                   ),
                 ),

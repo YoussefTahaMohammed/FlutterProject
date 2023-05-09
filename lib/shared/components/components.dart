@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment1/shared/colors.dart';
 AppBar appBar({
@@ -8,6 +9,9 @@ AppBar appBar({
   icon: const Icon(Icons.arrow_back),
   onPressed: () {},
   ),
+  actions: [
+
+  ],
   title: Text(name),
     backgroundColor: const Color.fromRGBO(119, 117, 245, 1),
 );
@@ -56,6 +60,8 @@ Widget defaultTextFormField({
   required Icon icon,
   required String text,
   required bool isRequired,
+  bool isEmail =false,
+  bool enabled =true,
   bool obscureText = false,
   bool enableSuggestions = true,
   bool autocorrect = true,
@@ -69,6 +75,8 @@ Widget defaultTextFormField({
       onFieldSubmitted: (value) {
 
       },
+      enabled: enabled,
+
       decoration: InputDecoration(
           suffixIcon: icon,
           border: OutlineInputBorder(
@@ -80,13 +88,19 @@ Widget defaultTextFormField({
         if (value!.isEmpty && isRequired) {
           return 'This Field Is Required';
         }
+        if(isEmail){
+          if (!EmailValidator.validate(textEditingController.text)) {
+            return 'Email format Wrong';
+          }
+        }
         return null;
       },
     );
 
 Widget defaultTextButton({
   required String text,
-})=>TextButton(onPressed: (){}, child:
+})=>TextButton(
+    onPressed: (){}, child:
 
   Text(text,
   style: const TextStyle(

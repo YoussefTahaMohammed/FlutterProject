@@ -52,7 +52,12 @@ class _SignupState extends State<Signup> {
       });
     }
   }
-
+  List<DropdownMenuItem> companySizeMenu()=> const[
+    DropdownMenuItem(value: "Micro", child: Text("Micro")),
+    DropdownMenuItem(value: "Small", child: Text("Small")),
+    DropdownMenuItem(value: "Mini", child: Text("Mini")),
+    DropdownMenuItem(value: "Large", child: Text("Large")),
+  ];
   List<Step> stepList() => [
     Step(
       state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
@@ -60,35 +65,27 @@ class _SignupState extends State<Signup> {
       title: const Text('Account'),
       content: Column(
         children: [
-          TextField(
-            controller: email,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Email',
-            ),
-          ),
+          defaultTextFormField(
+              textEditingController: email,
+              icon: const Icon(Icons.email_outlined),
+              text: "Email",
+              isRequired: true),
           const SizedBox(
-            height: 8,
+            height: 20,
           ),
-          TextField(
-            controller: pass,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Password',
-            ),
-          ),
+          defaultTextFormField(
+              textEditingController: pass,
+              icon: const Icon(Icons.lock),
+              text: "Password",
+              isRequired: true),
           const SizedBox(
-            height: 8,
+            height: 20,
           ),
-          TextField(
-            controller: confirmPass,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Confirm Password',
-            ),
-          ),
+          defaultTextFormField(
+              textEditingController: confirmPass,
+              icon: const Icon(Icons.lock),
+              text: "Confirm Password",
+              isRequired: true),
         ],
       ),
     ),
@@ -98,44 +95,30 @@ class _SignupState extends State<Signup> {
       title: const Text('Company'),
       content: Column(
         children: [
-          TextField(
-            controller: companyName,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Company Name',
-            ),
+          defaultTextFormField(
+              textEditingController: companyName,
+              icon: const Icon(Icons.add_business_outlined),
+              text: "Company Name",
+              isRequired: true),
+          const SizedBox(
+            height: 20,
+          ),
+          defaultTextFormField(
+              textEditingController: companyAddress,
+              icon: const Icon(Icons.edit_location_alt_outlined),
+              text: "Company Address",
+              isRequired: true),
+          const SizedBox(
+            height: 20,
+          ),
+          defaultDropDownList(
+              dropdownItemsList: companySizeMenu(),
+              value: _dropdownValue,
+              text: "Company Size",
+              function: dropdownCallback,
           ),
           const SizedBox(
-            height: 8,
-          ),
-          TextField(
-
-            controller: companyAddress,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Company Address',
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          DropdownButtonFormField(
-            items: const [
-              DropdownMenuItem(value: "Micro", child: Text("Micro")),
-              DropdownMenuItem(value: "Small", child: Text("Small")),
-              DropdownMenuItem(value: "Mini", child: Text("Mini")),
-              DropdownMenuItem(value: "Large", child: Text("Large")),
-            ],
-            value: _dropdownValue,
-            onChanged: dropdownCallback,
-            isExpanded: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Company Size',
-            ),
-          ),
-          const SizedBox(
-            height: 8,
+            height: 20,
           ),
         ],
       ),
@@ -148,24 +131,19 @@ class _SignupState extends State<Signup> {
         key: contactKey,
         child: Column(
           children: [
-            TextField(
-              controller: contactPersonName,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Contact Person Name',
-              ),
-            ),
+            defaultTextFormField(
+                textEditingController: contactPersonName,
+                icon: const Icon(Icons.person),
+                text: "Contact Person Name",
+                isRequired: true),
             const SizedBox(
-              height: 8,
+              height: 20,
             ),
-            TextField(
-              keyboardType:TextInputType.phone ,
-              controller: contactPersonPhone,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Contact Person Phone',
-              ),
-            ),
+            defaultTextFormField(
+                textEditingController: contactPersonPhone,
+                icon: const Icon(Icons.phone),
+                text: "Contact Person Phone",
+                isRequired: true),
           ],
         ),
       ),

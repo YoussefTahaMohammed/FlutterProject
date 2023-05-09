@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment1/shared/colors.dart';
@@ -76,7 +78,6 @@ Widget defaultTextFormField({
 
       },
       enabled: enabled,
-
       decoration: InputDecoration(
           suffixIcon: icon,
           border: OutlineInputBorder(
@@ -109,3 +110,23 @@ Widget defaultTextButton({
   )
 
 );
+
+Widget defaultDropDownList({
+  required List<DropdownMenuItem> dropdownItemsList,
+  required String value,
+  required String text,
+  required Function function(String),
+})=>
+
+  DropdownButtonFormField(
+    items: dropdownItemsList ,
+    value: value,
+    onChanged: function,
+    isExpanded: true,
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      labelText: text,
+    ),
+  );

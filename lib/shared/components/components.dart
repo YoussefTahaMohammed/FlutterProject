@@ -1,19 +1,20 @@
 import 'dart:ffi';
 
+import 'package:assignment1/modules/login/Login.dart';
+import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment1/shared/colors.dart';
 AppBar appBar({
-  required String name
+  required String name,
+  required List<Widget> list,
 })=>
   AppBar(
   leading: IconButton(
   icon: const Icon(Icons.arrow_back),
   onPressed: () {},
   ),
-  actions: [
-
-  ],
+  actions: list,
   title: Text(name),
     backgroundColor: const Color.fromRGBO(119, 117, 245, 1),
 );

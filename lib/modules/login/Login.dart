@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(name: "Login"),
+      appBar: appBar(name: "Login",list:[]),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(

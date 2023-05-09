@@ -1,3 +1,4 @@
+import 'package:assignment1/modules/editProfile/EditProfile.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBar(name: "Home"),
+        appBar: appBar(name: "Home",list: [
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(
+                builder: (BuildContext context) => EditProfile()));
+          },
+              icon:const Icon(Icons.settings))
+        ]),
     );
   }
 }

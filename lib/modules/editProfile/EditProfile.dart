@@ -25,7 +25,7 @@ class _EditProfileState extends State<EditProfile> {
 
     String image ="https://st3.depositphotos.com/9881890/15494/i/1600/depositphotos_154947154-stock-photo-smiling-woman-looking-at-camera.jpg";
     return Scaffold(
-        appBar: appBar(name: "Profile"),
+        appBar: appBar(name: "Profile",list: []),
         body: Padding(
           padding: const EdgeInsets.all(30),
           child: SingleChildScrollView(

@@ -23,7 +23,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(name: "Signup"),
+      appBar: appBar(name: "Signup",list: []),
       body: Stepper(
         steps: stepList(),
         type: StepperType.horizontal,

@@ -1,18 +1,15 @@
-import 'dart:ffi';
-
-import 'package:assignment1/modules/login/Login.dart';
-import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:assignment1/shared/colors.dart';
 AppBar appBar({
   required String name,
   required List<Widget> list,
+  bool isBackable=true,
+  VoidCallback? function
 })=>
   AppBar(
   leading: IconButton(
-  icon: const Icon(Icons.arrow_back),
-  onPressed: () {},
+  icon: isBackable?const Icon(Icons.arrow_back):Icon(null),
+  onPressed: function,
   ),
   actions: list,
   title: Text(name),

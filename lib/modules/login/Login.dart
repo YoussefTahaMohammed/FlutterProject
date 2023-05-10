@@ -1,12 +1,12 @@
+import 'package:assignment1/main.dart';
 import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:assignment1/shared/components/components.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:flutter_pw_validator/flutter_pw_validator.dart';
-
 import '../../constant/linkapi.dart';
 import '../../shared/components/crud.dart';
 import '../home/Home.dart';
+
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -21,25 +21,51 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   var loginKey = GlobalKey<FormState>();
-
-  signup() async {
-    var response = await _crud.postRequest(linkSignup, {
+  bool isLoading =false;
+  login() async {
+    isLoading =true;
+    setState(() {
+    });
+    var response = await _crud.postRequest(linkLogin, {
       "email" : emailController.text,
       "password": passwordController.text,
     });
     if (response['status'] == "success"){
-      Navigator.of(context).pushNamedAndRemoveUntil("Home", (route) => false);
-    }else{
-      print("Signup Fail");
+      sharedPref.setString("id", response['data']['id'].toString());
+      sharedPref.setString("email", response['data']['email'].toString());
+      isLoading =false;
+      setState(() {
+      });
+      Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+    }
+    else{
+      isLoading =false;
+      setState((){
+
+      });
+      AwesomeDialog(
+          context: context,
+          title: "Error",
+          autoHide: Duration(seconds: 3),
+          dialogType: DialogType.error,
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text(
+            "Incorrect Email or Password"
+            ),
+          ),
+
+      ).show();
     }
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(name: "Login",list:[]),
+      appBar: appBar(name: "Login",list:[],isBackable: false),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: SingleChildScrollView(
+        child: isLoading ? const Center(child: CircularProgressIndicator(),):
+        SingleChildScrollView(
           child: Form(
             key: loginKey,
             child: Column(
@@ -77,7 +103,7 @@ class _LoginState extends State<Login> {
                       text: "Login",
                       function: () async {
                         if (loginKey.currentState!.validate()) {
-                          await signup();
+                          await login();
                         }
                       }),
                 ),
@@ -91,7 +117,7 @@ class _LoginState extends State<Login> {
                       defaultTextButton(text: "signup",
                           function: () {
                               Navigator.push(context, MaterialPageRoute(
-                                  builder: (BuildContext context) => Signup()));
+                                  builder: (BuildContext context) => const Signup()));
                           }),
                     ],
                   ),

@@ -30,6 +30,8 @@ environment:
 dependencies:
   email_validator: '^2.1.16'
   flutter_pw_validator: '^1.5.0'
+  shared_preferences: '^2.0.0'
+  awesome_dialog: '^3.0.2'
   flutter:
     sdk: flutter
 

@@ -13,13 +13,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBar(name: "Home",list: [
+        appBar: appBar(
+            name: "Home",
+            list: [
           IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-                builder: (BuildContext context) => EditProfile()));
+            Navigator.of(context).pushNamed("profile");
           },
               icon:const Icon(Icons.settings))
-        ]),
+        ], isBackable: false),
     );
   }
 }

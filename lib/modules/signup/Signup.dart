@@ -1,5 +1,8 @@
+import 'package:assignment1/constant/linkapi.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
+
+import '../../shared/components/crud.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -8,10 +11,10 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+
   int _activeStepIndex = 0;
   String _dropdownValue = "Micro";
   var contactKey = GlobalKey<FormState>();
-
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
   TextEditingController confirmPass = TextEditingController();
@@ -20,11 +23,16 @@ class _SignupState extends State<Signup> {
   TextEditingController companyName = TextEditingController();
   TextEditingController companyAddress = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(name: "Signup",list: []),
+      appBar: appBar(
+          name: "Signup",
+          list: []
+      ),
       body: Stepper(
+        elevation: 0.5,
         steps: stepList(),
         type: StepperType.horizontal,
         currentStep: _activeStepIndex,
@@ -149,7 +157,7 @@ class _SignupState extends State<Signup> {
     Step(
         state: StepState.complete,
         isActive: _activeStepIndex >= 3,
-        title: const Text('Confirmation'),
+        title: const Text('Confirm'),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,

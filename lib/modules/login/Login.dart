@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
+import '../../constant/linkapi.dart';
+import '../../shared/components/crud.dart';
 import '../home/Home.dart';
 
 class Login extends StatefulWidget {
@@ -15,9 +17,22 @@ class Login extends StatefulWidget {
 
 @override
 class _LoginState extends State<Login> {
+  final Crud _crud = Crud();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   var loginKey = GlobalKey<FormState>();
+
+  signup() async {
+    var response = await _crud.postRequest(linkSignup, {
+      "email" : emailController.text,
+      "password": passwordController.text,
+    });
+    if (response['status'] == "success"){
+      Navigator.of(context).pushNamedAndRemoveUntil("Home", (route) => false);
+    }else{
+      print("Signup Fail");
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,10 +75,9 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.only(top: 35),
                   child: defaultButton(
                       text: "Login",
-                      function: () {
+                      function: () async {
                         if (loginKey.currentState!.validate()) {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (BuildContext context) => Home()));
+                          await signup();
                         }
                       }),
                 ),

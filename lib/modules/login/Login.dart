@@ -33,6 +33,12 @@ class _LoginState extends State<Login> {
     if (response['status'] == "success"){
       sharedPref.setString("id", response['data']['id'].toString());
       sharedPref.setString("email", response['data']['email'].toString());
+      sharedPref.setString("contactName", response['data']['contactpersonname'].toString());
+      sharedPref.setString("contactPhone", response['data']['contactpersonphone'].toString());
+      sharedPref.setString("companyName", response['data']['companyname'].toString());
+      sharedPref.setString("companyAddress", response['data']['companyAddress'].toString());
+      sharedPref.setString("companySize", response['data']['companysize'].toString());
+
       isLoading =false;
       setState(() {
       });
@@ -43,19 +49,8 @@ class _LoginState extends State<Login> {
       setState((){
 
       });
-      AwesomeDialog(
-          context: context,
-          title: "Error",
-          autoHide: Duration(seconds: 3),
-          dialogType: DialogType.error,
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text(
-            "Incorrect Email or Password"
-            ),
-          ),
-
-      ).show();
+      awesomeDialog(context: context, dialogType: DialogType.error
+          ,message: "Incorrect Email or Password", title: "Error");
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:assignment1/modules/editProfile/EditProfile.dart';
+import 'package:assignment1/modules/editProfile/Profile.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 

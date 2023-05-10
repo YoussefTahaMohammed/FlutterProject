@@ -1,0 +1,65 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
+
+import '../../constant/linkapi.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/crud.dart';
+final Crud _crud = Crud();
+bool isLoading =false;
+
+Future<String?> validEmail(context,email,setState)async{
+  isLoading = true;
+  var response = await _crud.postRequest(linkValidEmail, {
+    "email" : email.text,
+  });
+  if (response['status'] == "success"){
+    isLoading =false;
+    setState(() {
+    });
+    return null;
+  }
+  else{
+    isLoading =false;
+    setState((){
+
+    });
+    return "Email Already Exists";
+  }
+}
+
+signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue) async {
+  isLoading = true;
+  var response = await _crud.postRequest(linkSignup, {
+    "email" : email.text,
+    "password": pass.text,
+    "contactpersonname" : contactPersonName.text,
+    "contactpersonphone" :contactPersonPhone.text,
+    "companyname" : companyName.text,
+    "companyaddress" : companyAddress.text,
+    "companysize":_dropdownValue,
+  });
+  if (response['status'] == "success"){
+    isLoading =false;
+    setState(() {
+    });
+    awesomeDialog(context: context, message: "Done",
+        title: "Signup", dialogType: DialogType.success);
+    Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+  }
+  else{
+    isLoading =false;
+    setState((){
+
+    });
+    awesomeDialog(context: context, message: "Error",
+        title: "Connection Error", dialogType: DialogType.info);
+  }
+}
+
+bool confirmPassword(pass1,pass2){
+  if(pass1 == pass2){
+    return true;
+  }else{
+    return false;
+  }
+}

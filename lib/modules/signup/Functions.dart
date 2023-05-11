@@ -82,13 +82,14 @@ signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyN
     isLoading =false;
     setState(() {
     });
-    Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
     awesomeDialog(
       context: context,
       message: "Done",
       title: "Signup",
       dialogType: DialogType.success,
     );
+    const Duration(seconds: 3);
+    Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
   }
   else{
     isLoading =false;

@@ -14,22 +14,17 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController contactNameController = TextEditingController();
-  TextEditingController contactPhoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     emailController.text = sharedPref.getString("email").toString();
-    passwordController.text = "joeMohamed";
-    contactNameController.text = sharedPref.getString("contactName").toString();
-    contactPhoneController.text = sharedPref.getString("contactPhone").toString();
-
+    contactNameController.text =sharedPref.getString("contactName").toString();
     String image ="https://st3.depositphotos.com/9881890/15494/i/1600/depositphotos_154947154-stock-photo-smiling-woman-looking-at-camera.jpg";
     return Scaffold(
         appBar: appBar(name: "Profile",list: [
           IconButton(onPressed: (){
-            Navigator.of(context).pushNamed("editProfile");
+            Navigator.of(context).pushNamedAndRemoveUntil("editProfile", (route) => false);
         },
             icon: const Icon(Icons.edit))],
             function: (){
@@ -58,8 +53,8 @@ class _ProfileState extends State<Profile> {
                       ],
                       shape: BoxShape.circle,
                       border: Border.all(width: 3.0, color:  Colors.grey,strokeAlign: BorderSide.strokeAlignOutside),
-                      image: const DecorationImage(
-                          image: NetworkImage("https://st3.depositphotos.com/9881890/15494/i/1600/depositphotos_154947154-stock-photo-smiling-woman-looking-at-camera.jpg"),
+                      image:  DecorationImage(
+                          image: NetworkImage(image),
                         fit: BoxFit.cover,
                       )
                     ),

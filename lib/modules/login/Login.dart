@@ -33,10 +33,11 @@ class _LoginState extends State<Login> {
     if (response['status'] == "success"){
       sharedPref.setString("id", response['data']['id'].toString());
       sharedPref.setString("email", response['data']['email'].toString());
+      sharedPref.setString("password", response['data']['password']).toString();
       sharedPref.setString("contactName", response['data']['contactpersonname'].toString());
       sharedPref.setString("contactPhone", response['data']['contactpersonphone'].toString());
       sharedPref.setString("companyName", response['data']['companyname'].toString());
-      sharedPref.setString("companyAddress", response['data']['companyAddress'].toString());
+      sharedPref.setString("companyAddress", response['data']['companyaddress'].toString());
       sharedPref.setString("companySize", response['data']['companysize'].toString());
 
       isLoading =false;

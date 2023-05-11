@@ -267,13 +267,16 @@ class _SignupState extends State<Signup> {
               height: 12,
             ),
             // display selected items
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Wrap(
-                  children: _selectedItems.map((e) => Chip(label: Text(e),)).toList(),
-                ),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Wrap(
+                    children: _selectedItems.map((e) => Chip(label: Text(e),)).toList(),
+                  ),
+                ],
+              ),
             )
           ],
         ),

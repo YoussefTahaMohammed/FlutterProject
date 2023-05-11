@@ -1,6 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
+
 AppBar appBar({
   required String name,
   required List<Widget> list,
@@ -150,3 +152,5 @@ Future awesomeDialog({
       ),
 
       ).show();
+
+

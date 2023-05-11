@@ -1,3 +1,4 @@
+import 'package:assignment1/constant/menus.dart';
 import 'package:assignment1/modules/editProfile/Profile.dart';
 import 'package:assignment1/modules/editProfile/editProfile.dart';
 import 'package:assignment1/modules/home/Home.dart';
@@ -5,6 +6,7 @@ import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:flutter/material.dart';
 import 'modules/Login/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'Industry.dart';
 
 late SharedPreferences sharedPref ;
 

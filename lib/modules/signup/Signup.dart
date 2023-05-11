@@ -1,7 +1,8 @@
+import 'package:assignment1/Industry.dart';
+import 'package:assignment1/constant/menus.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
-
 import 'Functions.dart';
 
 class Signup extends StatefulWidget {
@@ -11,6 +12,23 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  List<String> _selectedItems = [];
+
+  void _showMultiSelect() async {
+    final List<String>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelect(items: industryList());
+      },
+    );
+
+    if (results != null) {
+      setState(() {
+        _selectedItems = results;
+      });
+    }
+  }
+
   List<GlobalKey<FormState>> stepperKey = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
@@ -27,7 +45,9 @@ class _SignupState extends State<Signup> {
   TextEditingController companyName = TextEditingController();
   TextEditingController companyAddress = TextEditingController();
   String? errorEmail;
+  String? errorPhone;
   String? errorPass;
+  String? errorCompany;
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +88,10 @@ class _SignupState extends State<Signup> {
                   function: () async {
                     if(!isLastStep){
                       if (stepperKey[_activeStepIndex].currentState!.validate()) {
-                        errorEmail = await validEmail(context, email, setState);
-                        if(errorEmail==null) {
+                        errorEmail   = await validEmail(context, email, setState);
+                        //errorPhone   = await validPhone(context, contactPersonPhone, setState);
+                        //errorCompany = await validCompanyName(context, companyName, setState);
+                        if(errorEmail == null) {
                           if(confirmPassword(pass.text, confirmPass.text)){
                             controlsDetails.onStepContinue!();
                           }
@@ -77,6 +99,17 @@ class _SignupState extends State<Signup> {
                             errorPass = "Password doesn't match";
                           }
                         }
+                        // if(errorPhone == null) {
+                        //   if(isNumber(contactPersonPhone.text)){
+                        //     controlsDetails.onStepContinue!();
+                        //   }
+                        //   else{
+                        //     errorPhone = "Numeric only";
+                        //   }
+                        // }
+                        // if(errorCompany == null) {
+                        //   controlsDetails.onStepContinue!();
+                        // }
                       }
                     }else{
                       await signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue);
@@ -86,7 +119,6 @@ class _SignupState extends State<Signup> {
                   text: (isLastStep)?"Signup":"Next",
                 ),
               ),
-
               const SizedBox(
                 width: 30,
               ),
@@ -110,12 +142,6 @@ class _SignupState extends State<Signup> {
     });
   }
   double fontSize=22;
-  List<DropdownMenuItem> companySizeMenu()=> const[
-    DropdownMenuItem(value: "Micro", child: Text("Micro")),
-    DropdownMenuItem(value: "Small", child: Text("Small")),
-    DropdownMenuItem(value: "Mini", child: Text("Mini")),
-    DropdownMenuItem(value: "Large", child: Text("Large")),
-  ];
   List<Step> stepList() => [
     Step(
       state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
@@ -169,7 +195,7 @@ class _SignupState extends State<Signup> {
                 textEditingController: confirmPass,
                 icon: const Icon(Icons.lock),
                 text: "Confirm Password",
-                obscureText: true,
+                obscureText: false,
                 autocorrect: false,
                 isRequired: true,errorText: errorPass),
             const SizedBox(
@@ -191,7 +217,9 @@ class _SignupState extends State<Signup> {
                 textEditingController: companyName,
                 icon: const Icon(Icons.add_business_outlined),
                 text: "Company Name",
-                isRequired: true),
+                isRequired: true,
+                errorText: errorCompany
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -213,6 +241,40 @@ class _SignupState extends State<Signup> {
             const SizedBox(
               height: 20,
             ),
+            SizedBox(
+              height: 60,
+              child: OutlinedButton(
+                onPressed: _showMultiSelect,
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20), // add some padding
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), // set border radius if needed
+                  side: const BorderSide(color: Colors.grey), // add border color
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:const [
+                    Text(
+                      'Industry',
+                      style: TextStyle(color: Colors.black), // set text color to black
+                    ),
+                    Icon(Icons.arrow_drop_down, color: Colors.black),
+                  ],
+                ),
+              ),
+
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            // display selected items
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Wrap(
+                  children: _selectedItems.map((e) => Chip(label: Text(e),)).toList(),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -238,7 +300,9 @@ class _SignupState extends State<Signup> {
                 textEditingController: contactPersonPhone,
                 icon: const Icon(Icons.phone),
                 text: "Contact Person Phone",
-                isRequired: true),
+                isRequired: true,
+                errorText: errorPhone
+            ),
             const SizedBox(
               height: 20,
             ),

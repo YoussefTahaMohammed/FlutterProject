@@ -1,11 +1,8 @@
-import 'package:assignment1/constant/linkapi.dart';
 import 'package:assignment1/constant/menus.dart';
 import 'package:assignment1/main.dart';
 import 'package:assignment1/modules/editProfile/Functions.dart';
 import 'package:assignment1/modules/signup/Functions.dart';
 import 'package:assignment1/shared/components/components.dart';
-import 'package:assignment1/shared/components/crud.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
@@ -17,8 +14,12 @@ class editProfile extends StatefulWidget {
 }
 
 class _editProfileState extends State<editProfile> {
-
-  String _dropdownValue = "Micro";
+  void dropdownCallback(var selectedValue) {
+    setState(() {
+      _dropdownValue = selectedValue;
+    });
+  }
+  late String _dropdownValue ;
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
   TextEditingController newpass = TextEditingController();
@@ -33,34 +34,35 @@ class _editProfileState extends State<editProfile> {
   String? errorNewPass;
   String? errorConfirm;
   String? errorPhone;
+  String? errorCompName;
   bool emailCheck = false;
   bool passCheck = false;
   bool validatePass =false;
   GlobalKey<FormState> form1Key = GlobalKey<FormState>();
   GlobalKey<FormState> form2Key = GlobalKey<FormState>();
   GlobalKey<FormState> form3Key = GlobalKey<FormState>();
-  void dropdownCallback(var selectedValue) {
-    setState(() {
-      _dropdownValue = selectedValue;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     email.text = sharedPref.getString("email").toString();
     contactPersonName.text = sharedPref.getString("contactName").toString();
     contactPersonPhone.text = sharedPref.getString("contactPhone").toString();
     companyName.text = sharedPref.getString("companyName").toString();
     companyAddress.text = sharedPref.getString("companyAddress").toString();
     _dropdownValue = sharedPref.getString("companySize").toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: appBar(name: "Edit Profile", list: [],isBackable: true,function: (){
-          Navigator.of(context).pushNamedAndRemoveUntil("profile", (route) => false);
           setState(() {
 
           });
+          Navigator.of(context).pop();
         }),
         body: Center(
           child: Column(
@@ -198,9 +200,6 @@ class _editProfileState extends State<editProfile> {
                                             }
 
                                           };
-                                          print(emailCheck);
-                                          print(passCheck);
-                                          print(validatePass);
                                             if(passCheck&&validatePass) {
                                               await UpdateEmailPass(email.text,newpass.text,setState,context);
                                             }
@@ -223,32 +222,10 @@ class _editProfileState extends State<editProfile> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Container(
-                              width: 130,
-                              height: 130,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      spreadRadius: 2,
-                                      blurRadius: 3,
-                                      offset: const Offset(0, 7), // changes position of shadow
-                                    ),
-                                  ],
-                                  shape: BoxShape.circle,
-                                  border: Border.all(width: 3.0, color:  Colors.grey,strokeAlign: BorderSide.strokeAlignOutside),
-                                  image:  DecorationImage(
-                                    image: NetworkImage(image),
-                                    fit: BoxFit.cover,
-                                  )
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Form(
+                                key: form2Key,
                                 child: Column(
                                   children: [
                                     defaultTextFormField(
@@ -276,7 +253,7 @@ class _editProfileState extends State<editProfile> {
                                             context, contactPersonPhone,
                                             setState);
                                       }
-                                      if(contactPersonName.text!= "") {
+                                      if(form2Key.currentState!.validate()) {
                                         if (errorPhone == null) {
                                           await UpdatePerson(contactPersonName.text, contactPersonPhone.text
                                               , setState, context);
@@ -300,13 +277,16 @@ class _editProfileState extends State<editProfile> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Form(
+                                key: form3Key,
                                 child: Column(
                                   children: [
                                     defaultTextFormField(
                                         textEditingController: companyName,
                                         icon: const Icon(Icons.add_business_outlined),
                                         text: "Company Name",
-                                        isRequired: true),
+                                        isRequired: true,
+                                        errorText: errorCompName
+                                    ),
                                     const SizedBox(
                                       height: 20,
                                     ),
@@ -328,7 +308,22 @@ class _editProfileState extends State<editProfile> {
                                     const SizedBox(
                                       height: 30,
                                     ),
-                                    defaultButton(function: (){}, text: "Save")
+                                    defaultButton(function: () async {
+                                      print(companyName.text);
+                                      print(companyAddress.text);
+                                      print(_dropdownValue);
+                                      if(companyName.text != sharedPref.getString("companyName")) {
+                                        errorCompName = await validCompanyName(
+                                            context, companyName,
+                                            setState);
+                                      }
+                                      if(form3Key.currentState!.validate()) {
+                                        if (errorCompName == null) {
+                                          await UpdateCompany(companyName.text,companyAddress.text,_dropdownValue
+                                              , setState, context);
+                                        }
+                                      }
+                                    }, text: "Save")
                                   ],
 
                                 ),
@@ -347,4 +342,6 @@ class _editProfileState extends State<editProfile> {
       ),
     );
   }
+
 }
+

@@ -67,7 +67,7 @@ Future<String?> validPhone(context,contactPersonPhone,setState) async{
   }
 }
 
-signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue) async {
+signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue,_selectedItems) async {
   isLoading = true;
   var response = await _crud.postRequest(linkSignup, {
     "email" : email.text,
@@ -77,19 +77,19 @@ signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyN
     "companyname" : companyName.text,
     "companyaddress" : companyAddress.text,
     "companysize":_dropdownValue,
+    "companyindustry":_selectedItems,
   });
   if (response['status'] == "success"){
     isLoading =false;
     setState(() {
     });
-    awesomeDialog(
-      context: context,
-      message: "Done",
-      title: "Signup",
-      dialogType: DialogType.success,
-    );
-    const Duration(seconds: 3);
     Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+    // awesomeDialog(
+    //   context: context,
+    //   message: "Done",
+    //   title: "Signup",
+    //   dialogType: DialogType.success,
+    // );
   }
   else{
     isLoading =false;

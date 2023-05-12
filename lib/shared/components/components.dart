@@ -1,3 +1,4 @@
+import 'package:assignment1/shared/colors.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ AppBar appBar({
   ),
   actions: list,
   title: Text(name),
-    backgroundColor: const Color.fromRGBO(119, 117, 245, 1),
+    backgroundColor: defaultColor,
 );
 
 Widget defaultButton({
@@ -107,8 +108,8 @@ Widget defaultTextButton({
     onPressed: function,
     child:
   Text(text,
-  style: const TextStyle(
-    color: Color.fromRGBO(119, 117, 245, 1)
+  style:  TextStyle(
+    color: defaultColor
   ),
   )
 

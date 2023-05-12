@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
       sharedPref.setString("companyName", response['data']['companyname'].toString());
       sharedPref.setString("companyAddress", response['data']['companyaddress'].toString());
       sharedPref.setString("companySize", response['data']['companysize'].toString());
-
+      sharedPref.setString("image", response['data']['image'].toString());
       isLoading =false;
       setState(() {
       });

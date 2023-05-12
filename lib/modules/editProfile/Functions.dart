@@ -22,15 +22,13 @@ UpdateEmailPass(email,newpass,setState,context) async {
     sharedPref.setString("password", newpass);
     setState(() {
     });
-    Navigator.of(context).pushNamedAndRemoveUntil("editProfile", (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
   }
   else{
     isLoading =false;
     setState((){
 
     });
-    awesomeDialog(context: context, dialogType: DialogType.error
-        ,message: "Email Already Exists", title: "Error");
   }
 }
 
@@ -38,7 +36,7 @@ UpdatePerson(name,phone,setState,context) async {
   isLoading =true;
   setState(() {
   });
-  var response = await _crud.postRequest(updateEmailPass, {
+  var response = await _crud.postRequest(updatePerson, {
     "id" : sharedPref.getString("id").toString(),
     "name" : name,
     "phone": phone,
@@ -49,7 +47,34 @@ UpdatePerson(name,phone,setState,context) async {
     sharedPref.setString("contactPhone", phone);
     setState(() {
     });
-    Navigator.of(context).pushNamedAndRemoveUntil("editProfile", (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+  }
+  else{
+    isLoading =false;
+    setState((){
+
+    });
+  }
+}
+
+UpdateCompany(name,address,size,setState,context) async {
+  isLoading =true;
+  setState(() {
+  });
+  var response = await _crud.postRequest(updateCompany, {
+    "id" : sharedPref.getString("id").toString(),
+    "name" : name,
+    "address": address,
+    "size": size
+  });
+  if (response['status'] == "success"){
+    sharedPref.setString("companyName", name);
+    sharedPref.setString("companyAddress", address);
+    sharedPref.setString("companySize", size);
+    isLoading =false;
+    setState(() {
+    });
+    Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
   }
   else{
     isLoading =false;
@@ -57,6 +82,42 @@ UpdatePerson(name,phone,setState,context) async {
 
     });
     awesomeDialog(context: context, dialogType: DialogType.error
-        ,message: "Phone Already Exists", title: "Error");
+        ,message: response['status'], title: "Error");
+  }
+}
+Future<bool> addPhoto(image,setState,context) async{
+  isLoading =true;
+  setState(() {
+  });
+  var response = await _crud.postRequestWithImage(linkUploadPhoto, {
+    "id" : sharedPref.getString("id").toString(),},image);
+  if (response['status'] == "success"){
+    isLoading =false;
+    setState(() {});
+    return true;
+  }
+  else{
+    isLoading =false;
+    setState((){});
+    return false;
+  }
+}
+
+getImage(setState,context) async {
+  isLoading =true;
+  setState(() {});
+  var response = await _crud.postRequest(linkGetPhoto, {
+    "id" : sharedPref.get('id'),
+  });
+  if (response['status'] == "success"){
+    sharedPref.setString("image", response['data']['image'].toString());
+    isLoading =false;
+    setState(() {});
+    print( response['data']['image'].toString());
+  }
+  else{
+    isLoading =false;
+    setState((){});
+
   }
 }

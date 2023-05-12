@@ -55,7 +55,7 @@ class _SignupState extends State<Signup> {
       appBar: appBar(
           name: "Signup",
           list: [],
-        function:(){
+          function:(){
             Navigator.of(context).pop();
           }
       ),
@@ -112,7 +112,7 @@ class _SignupState extends State<Signup> {
                         // }
                       }
                     }else{
-                      await signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue);
+                      await signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue,_selectedItems.toString());
                     }
                   },
                   textFontSize: 15,
@@ -175,9 +175,9 @@ class _SignupState extends State<Signup> {
             SingleChildScrollView(
               child: FlutterPwValidator(
                   controller: pass,
-                  minLength: 8,
-                  uppercaseCharCount: 1,
-                  numericCharCount: 1,
+                  minLength: 4,
+                  //uppercaseCharCount: 1,
+                  //numericCharCount: 1,
                   width: 400,
                   height:100,
                   onSuccess: (){
@@ -246,18 +246,17 @@ class _SignupState extends State<Signup> {
               child: OutlinedButton(
                 onPressed: _showMultiSelect,
                 style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20), // add some padding
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), // set border radius if needed
                   side: const BorderSide(color: Colors.grey), // add border color
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:const [
+                  children: [
                     Text(
                       'Industry',
-                      style: TextStyle(color: Colors.black), // set text color to black
+                      style: TextStyle(color: Colors.grey.withOpacity(0.8)), // set text color to black
                     ),
-                    Icon(Icons.arrow_drop_down, color: Colors.black),
+                    const Icon(Icons.arrow_drop_down, color: Colors.black),
                   ],
                 ),
               ),
@@ -268,7 +267,7 @@ class _SignupState extends State<Signup> {
             ),
             // display selected items
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.horizontal ,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -360,6 +359,4 @@ class _SignupState extends State<Signup> {
           ),
         ))
   ];
-
-
 }

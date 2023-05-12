@@ -36,7 +36,7 @@ class _SignupState extends State<Signup> {
     GlobalKey<FormState>()
   ];
   int _activeStepIndex = 0;
-  String _dropdownValue = "Micro";
+  String? _dropdownValue ;
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
   TextEditingController confirmPass = TextEditingController();
@@ -88,28 +88,33 @@ class _SignupState extends State<Signup> {
                   function: () async {
                     if(!isLastStep){
                       if (stepperKey[_activeStepIndex].currentState!.validate()) {
-                        errorEmail   = await validEmail(context, email, setState);
-                        //errorPhone   = await validPhone(context, contactPersonPhone, setState);
-                        //errorCompany = await validCompanyName(context, companyName, setState);
-                        if(errorEmail == null) {
-                          if(confirmPassword(pass.text, confirmPass.text)){
-                            controlsDetails.onStepContinue!();
-                          }
-                          else{
-                            errorPass = "Password doesn't match";
+                        if(_activeStepIndex == 0){
+                          errorEmail   = await validEmail(context, email, setState);                        if(errorEmail == null ) {
+                            if(confirmPassword(pass.text, confirmPass.text)){
+                              controlsDetails.onStepContinue!();
+                            }
+                            else{
+                              errorPass = "Password doesn't match";
+                            }
                           }
                         }
-                        // if(errorPhone == null) {
-                        //   if(isNumber(contactPersonPhone.text)){
-                        //     controlsDetails.onStepContinue!();
-                        //   }
-                        //   else{
-                        //     errorPhone = "Numeric only";
-                        //   }
-                        // }
-                        // if(errorCompany == null) {
-                        //   controlsDetails.onStepContinue!();
-                        // }
+                        else if(_activeStepIndex == 2){
+                          errorPhone   = await validPhone(context, contactPersonPhone, setState);
+                          if(errorPhone == null) {
+                            if(isNumber(contactPersonPhone.text)){
+                              controlsDetails.onStepContinue!();
+                            }
+                            else{
+                              errorPhone = "Numeric only";
+                            }
+                          }
+                        }
+                        else if(_activeStepIndex == 1){
+                          errorCompany = await validCompanyName(context, companyName, setState);
+                          if(errorCompany == null) {
+                            controlsDetails.onStepContinue!();
+                          }
+                        }
                       }
                     }else{
                       await signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue,_selectedItems.toString());
@@ -165,7 +170,7 @@ class _SignupState extends State<Signup> {
               textEditingController: pass,
               icon: const Icon(Icons.lock),
               text: "Password",
-              obscureText: false,
+              obscureText: true,
               autocorrect: false,
               isRequired: true,
             ),
@@ -175,17 +180,13 @@ class _SignupState extends State<Signup> {
             SingleChildScrollView(
               child: FlutterPwValidator(
                   controller: pass,
-                  minLength: 4,
-                  //uppercaseCharCount: 1,
-                  //numericCharCount: 1,
+                  minLength: 8,
+                  uppercaseCharCount: 1,
+                  numericCharCount: 1,
                   width: 400,
                   height:100,
-                  onSuccess: (){
-                    print(pass.text);
-                  },
-                  onFail: (){
-                    print("Error");
-                  }
+                  onSuccess: (){},
+                  onFail: (){}
               ),
             ),
             const SizedBox(
@@ -195,7 +196,7 @@ class _SignupState extends State<Signup> {
                 textEditingController: confirmPass,
                 icon: const Icon(Icons.lock),
                 text: "Confirm Password",
-                obscureText: false,
+                obscureText: true,
                 autocorrect: false,
                 isRequired: true,errorText: errorPass),
             const SizedBox(
@@ -227,13 +228,14 @@ class _SignupState extends State<Signup> {
                 textEditingController: companyAddress,
                 icon: const Icon(Icons.edit_location_alt_outlined),
                 text: "Company Address",
-                isRequired: true),
+                isRequired: true
+            ),
             const SizedBox(
               height: 20,
             ),
             defaultDropDownList(
               dropdownItemsList: companySizeMenu(),
-              isRequired: true,
+              isRequired: false,
               value: _dropdownValue,
               text: "Company Size",
               function: dropdownCallback,
@@ -260,7 +262,6 @@ class _SignupState extends State<Signup> {
                   ],
                 ),
               ),
-
             ),
             const SizedBox(
               height: 12,
@@ -340,7 +341,7 @@ class _SignupState extends State<Signup> {
                   fontSize: fontSize,
                 ),
               ),
-              Text('Company Size : $_dropdownValue',
+              Text('Company Size : ${_dropdownValue??""}' ,
                 style:  TextStyle(
                   fontSize: fontSize,
                 ),),

@@ -17,9 +17,10 @@ class _editProfileState extends State<editProfile> {
   void dropdownCallback(var selectedValue) {
     setState(() {
       _dropdownValue = selectedValue;
+      print(_dropdownValue);
     });
   }
-  late String _dropdownValue ;
+  String? _dropdownValue ;
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
   TextEditingController newpass = TextEditingController();
@@ -50,7 +51,11 @@ class _editProfileState extends State<editProfile> {
     contactPersonPhone.text = sharedPref.getString("contactPhone").toString();
     companyName.text = sharedPref.getString("companyName").toString();
     companyAddress.text = sharedPref.getString("companyAddress").toString();
-    _dropdownValue = sharedPref.getString("companySize").toString();
+    if(sharedPref.getString("companySize").toString().toLowerCase() != "null"){
+      _dropdownValue=sharedPref.getString("companySize");
+      print(_dropdownValue);
+    }
+
   }
 
   @override
@@ -248,15 +253,16 @@ class _editProfileState extends State<editProfile> {
                                       height: 30,
                                     ),
                                     defaultButton(function: () async {
+                                      bool isNum = true;
                                       if(contactPersonPhone.text != sharedPref.getString("contactPhone")) {
-                                        errorPhone = await validPhone(
-                                            context, contactPersonPhone,
-                                            setState);
+                                        errorPhone = await validPhone(context, contactPersonPhone, setState);
+                                        isNum = isNumber(contactPersonPhone.text);
                                       }
                                       if(form2Key.currentState!.validate()) {
-                                        if (errorPhone == null) {
-                                          await UpdatePerson(contactPersonName.text, contactPersonPhone.text
-                                              , setState, context);
+                                        isNum ? errorPhone = null : errorPhone ='Numeric Only' ;
+                                        setState(() {});
+                                        if (errorPhone == null && isNum ) {
+                                          await UpdatePerson(contactPersonName.text, contactPersonPhone.text, setState, context);
                                         }
                                       }
                                     }, text: "Save")
@@ -309,9 +315,6 @@ class _editProfileState extends State<editProfile> {
                                       height: 30,
                                     ),
                                     defaultButton(function: () async {
-                                      print(companyName.text);
-                                      print(companyAddress.text);
-                                      print(_dropdownValue);
                                       if(companyName.text != sharedPref.getString("companyName")) {
                                         errorCompName = await validCompanyName(
                                             context, companyName,
@@ -319,8 +322,8 @@ class _editProfileState extends State<editProfile> {
                                       }
                                       if(form3Key.currentState!.validate()) {
                                         if (errorCompName == null) {
-                                          await UpdateCompany(companyName.text,companyAddress.text,_dropdownValue
-                                              , setState, context);
+
+                                          await UpdateCompany(companyName.text,companyAddress.text,_dropdownValue!, setState, context);
                                         }
                                       }
                                     }, text: "Save")

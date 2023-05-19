@@ -52,8 +52,8 @@ Widget defaultButton({
           ),
         ),
         child: Text(isUpperCase ? text.toUpperCase() : text,
-          style: const TextStyle(
-              color: Colors.white,
+          style:  TextStyle(
+              color: textColor,
               fontSize: 20
           ),
         ),

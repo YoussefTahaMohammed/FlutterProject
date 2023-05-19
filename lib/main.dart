@@ -1,12 +1,14 @@
-import 'package:assignment1/constant/menus.dart';
 import 'package:assignment1/modules/editProfile/Profile.dart';
 import 'package:assignment1/modules/editProfile/EditProfile.dart';
 import 'package:assignment1/modules/home/Home.dart';
+import 'package:assignment1/modules/service/add_service.dart';
+import 'package:assignment1/modules/service/services.dart';
 import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:flutter/material.dart';
 import 'modules/Login/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Industry.dart';
+
+import 'modules/company/companies.dart';
 
 late SharedPreferences sharedPref ;
 
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
         "profile": (context) => Profile(),
         "home": (context) => Home(),
         "editProfile": (context) => editProfile(),
+        "company":(context)=> Companies(),
+        "services":(context)=> Services(),
+        "addService":(context)=> AddService(),
       },
     );
   }

@@ -51,7 +51,7 @@ class _editProfileState extends State<editProfile> {
     contactPersonPhone.text = sharedPref.getString("contactPhone").toString();
     companyName.text = sharedPref.getString("companyName").toString();
     companyAddress.text = sharedPref.getString("companyAddress").toString();
-    if(sharedPref.getString("companySize").toString().toLowerCase() != "null"){
+    if(sharedPref.getString("companySize").toString().toLowerCase() != "null"&&sharedPref.getString("companySize").toString().toLowerCase()!=""){
       _dropdownValue=sharedPref.getString("companySize");
       print(_dropdownValue);
     }

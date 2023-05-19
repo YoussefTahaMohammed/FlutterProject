@@ -1,4 +1,3 @@
-import 'package:assignment1/modules/editProfile/Profile.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +20,31 @@ class _HomeState extends State<Home> {
           },
               icon:const Icon(Icons.settings))
         ], isBackable: false),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              defaultButton(
+                  function: (){
+
+                    Navigator.of(context).pushNamed("company");
+                  }, text: "Companies"),
+              const SizedBox(
+                height: 20,
+              ),
+              defaultButton(
+                  function: (){
+                    Navigator.of(context).pushNamed("services");
+                  }, text: "Services"),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

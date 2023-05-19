@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
-import '../../constant/linkapi.dart';
+import '../../constant/linkAPI.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/crud.dart';
 

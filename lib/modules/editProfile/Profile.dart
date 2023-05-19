@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:assignment1/constant/linkapi.dart';
+import 'package:assignment1/constant/linkAPI.dart';
 import 'package:assignment1/main.dart';
 import 'package:assignment1/modules/editProfile/Functions.dart';
 import 'package:assignment1/shared/colors.dart';

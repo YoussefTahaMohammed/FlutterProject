@@ -1,4 +1,4 @@
-import 'package:assignment1/constant/linkapi.dart';
+import 'package:assignment1/constant/linkAPI.dart';
 import 'package:assignment1/main.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:assignment1/shared/components/crud.dart';
@@ -62,7 +62,7 @@ UpdateCompany(name,address,size,setState,context) async {
   setState(() {
   });
   var response = await _crud.postRequest(updateCompany, {
-    "id" : sharedPref.getString("id").toString(),
+    "id" : sharedPref.getString("companyid").toString(),
     "name" : name,
     "address": address,
     "size": size

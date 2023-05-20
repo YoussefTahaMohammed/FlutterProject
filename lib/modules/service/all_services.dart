@@ -29,8 +29,7 @@ class _AllServicesState extends State<AllServices> {
                       ServiceCard(
                           serviceName: snapshot.data['data'][i]['servicename'],
                           serviceDescription: snapshot.data['data'][i]['servicedescription'],
-                          isFavourite: snapshot.data['data'][i]['isfavourite'],
-                          id: snapshot.data['data'][i]['id'],
+                          id: snapshot.data['data'][i]['serviceid'],
                       );
                   },
                     physics: const BouncingScrollPhysics(),

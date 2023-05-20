@@ -83,7 +83,7 @@ class _CompaniesState extends State<Companies>{
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return const Center(child: Text("Loading...."));
                     }
-                    return const Center(child: Text("Loading...."));
+                    return const Center(child: Text("No Companies Available...."));
                   },
                     future: getCompanies(),
                   )

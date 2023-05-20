@@ -11,7 +11,6 @@ addService(setState,serviceNameController,serviceDescriptionController) async {
     "companyid": sharedPref.getString("companyid"),
     "servicename" : serviceNameController.text,
     "servicedescription": serviceDescriptionController.text,
-    "isfavourite": "0",
   });
   return response;
 }
@@ -30,4 +29,28 @@ addFavorite(context,list) async{
       "id":sharedPref.getString("id").toString(),
       "list":list
   });
+}
+isFav(isStared,context,id) {
+  if(isStared){
+    if(sharedPref.getString("favoriteServices")=="null"||
+        sharedPref.getString("favoriteServices")==""){
+      addFavorite(context,"$id,");
+      sharedPref.setString("favoriteServices", "$id,");
+    }
+    else{
+      sharedPref.setString("favoriteServices", "${sharedPref.getString("favoriteServices")}$id,");
+      addFavorite(context, sharedPref.getString("favoriteServices"));
+    }
+  }
+  else{
+    //1,3
+    List<String> list =sharedPref.getString("favoriteServices").toString().split(",");
+    list.removeWhere((element) => element == "$id");
+    String out =list.toString();
+    out = out.replaceAll("[", "");
+    out = out.replaceAll("]", "");
+    out = out.replaceAll(" ", "");
+    sharedPref.setString("favoriteServices", out);
+    addFavorite(context, sharedPref.getString("favoriteServices"));
+  }
 }

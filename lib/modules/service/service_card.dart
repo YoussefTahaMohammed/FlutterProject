@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class ServiceCard extends StatelessWidget {
   final String serviceName;
   final String serviceDescription;
-  final int isFavourite;
   final int id;
 
   const ServiceCard({
@@ -14,11 +13,11 @@ class ServiceCard extends StatelessWidget {
     required this.id,
     required this.serviceName,
     required this.serviceDescription,
-    required this.isFavourite,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List <String>isStarred = sharedPref.getString("favoriteServices").toString().split(",");
     return Container(
       decoration: const BoxDecoration(
         color: Color.fromRGBO(119, 117, 245, 0.2),
@@ -81,7 +80,7 @@ class ServiceCard extends StatelessWidget {
                   addFavorite(context, sharedPref.getString("favoriteServices"));
                 }
               },
-              isStarred: sharedPref.getString("favoriteServices").toString().contains(id.toString())  ? true: false,
+              isStarred: isStarred.contains(id.toString()) ? true: false,
               iconColor: const Color.fromRGBO(255, 149, 41, 1),
             ),
           ],

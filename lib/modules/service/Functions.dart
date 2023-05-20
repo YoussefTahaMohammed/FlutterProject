@@ -1,6 +1,7 @@
 import 'package:assignment1/constant/linkAPI.dart';
 import 'package:assignment1/main.dart';
 import 'package:assignment1/shared/components/crud.dart';
+import 'package:flutter/material.dart';
 
 final Crud _crud = Crud();
 
@@ -19,6 +20,14 @@ getServices() async{
   return response;
 }
 getFavServices() async{
-  var response =  await _crud.postRequest(linkViewFavServices, {});
+  var response =  await _crud.postRequest(linkViewFavServices, {
+    "fav": sharedPref.getString("favoriteServices")
+  });
   return response;
+}
+addFavorite(context,list) async{
+  var response = await _crud.postRequest(linkAddFavorite, {
+      "id":sharedPref.getString("id").toString(),
+      "list":list
+  });
 }

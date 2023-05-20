@@ -28,6 +28,7 @@ login(setState,emailController,passwordController,context) async {
     sharedPref.setString("companyAddress", response['data2']['companyaddress'].toString());
     sharedPref.setString("companySize", response['data2']['companysize'].toString());
     sharedPref.setString("image", response['data']['image'].toString());
+    sharedPref.setString("favoriteServices", response['data']['favoriteservices'].toString());
     isLoading =false;
     setState(() {
     });

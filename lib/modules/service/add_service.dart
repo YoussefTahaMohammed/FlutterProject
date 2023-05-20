@@ -82,7 +82,7 @@ class _AddServiceState extends State<AddService> {
                     child: OutlinedButton(
                       onPressed: (){
                         addService(setState,serviceNameController,serviceDescriptionController);
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
                       },
                       style: OutlinedButton.styleFrom(
                         backgroundColor: const Color.fromRGBO(119, 117, 245, 1),

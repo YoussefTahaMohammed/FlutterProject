@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class CompanyCard extends StatelessWidget {
   final String companyName;
   final String companyServices;
-
+  final int id;
   const CompanyCard({
     Key? key,
+    required this.id,
     required this.companyName,
     required this.companyServices,
   }) : super(key: key);

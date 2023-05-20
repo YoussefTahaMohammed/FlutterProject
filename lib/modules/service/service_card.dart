@@ -1,3 +1,5 @@
+import 'package:assignment1/main.dart';
+import 'package:assignment1/modules/service/Functions.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 
@@ -5,9 +7,11 @@ class ServiceCard extends StatelessWidget {
   final String serviceName;
   final String serviceDescription;
   final int isFavourite;
+  final int id;
 
   const ServiceCard({
     Key? key,
+    required this.id,
     required this.serviceName,
     required this.serviceDescription,
     required this.isFavourite,
@@ -54,10 +58,30 @@ class ServiceCard extends StatelessWidget {
               ),
             ),
             StarButton(
-              valueChanged: () {
-                // Handle the favorite button press
+              valueChanged: (isStared) {
+                if(isStared){
+                  if(sharedPref.getString("favoriteServices")=="null"||
+                      sharedPref.getString("favoriteServices")==""){
+                      addFavorite(context,"$id,");
+                      sharedPref.setString("favoriteServices", "$id,");
+                  }
+                  else{
+                    sharedPref.setString("favoriteServices", "${sharedPref.getString("favoriteServices")}$id,");
+                    addFavorite(context, sharedPref.getString("favoriteServices"));
+                  }
+                }
+                else{
+                  List<String> list =sharedPref.getString("favoriteServices").toString().split(",");
+                  list.removeWhere((element) => element == "$id");
+                  String out =list.toString();
+                  out = out.replaceAll("[", "");
+                  out = out.replaceAll("]", "");
+                  out = out.replaceAll(" ", "");
+                  sharedPref.setString("favoriteServices", out);
+                  addFavorite(context, sharedPref.getString("favoriteServices"));
+                }
               },
-              isStarred: isFavourite==1 ? true: false,
+              isStarred: sharedPref.getString("favoriteServices").toString().contains(id.toString())  ? true: false,
               iconColor: const Color.fromRGBO(255, 149, 41, 1),
             ),
           ],

@@ -15,3 +15,4 @@ const String linkAddService      =   "$linkServerName/service/addService.php";
 const String linkViewServices = "$linkServerName/service/viewServices.php";
 const String linkViewFavServices = "$linkServerName/service/viewFavServices.php";
 const String linkViewCompanies = "$linkServerName/service/viewCompanies.php";
+const String linkAddFavorite = "$linkServerName/service/addFavorite.php";

@@ -69,7 +69,9 @@ class _CompaniesState extends State<Companies>{
                         return
                           CompanyCard(
                               companyName: snapshot.data['data'][i]['companyname'],
-                              companyServices: snapshot.data['data'][i]['companyservices']??"No Services Available",
+                              companyServices: "Number of Services: ${snapshot.data['data'][i]['number']}",
+                              id: snapshot.data['data'][i]['id'],
+
                           );
                       },
                         physics: const BouncingScrollPhysics(),

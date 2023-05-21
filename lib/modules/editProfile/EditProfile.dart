@@ -55,7 +55,6 @@ class _editProfileState extends State<editProfile> {
       _dropdownValue=sharedPref.getString("companySize");
       print(_dropdownValue);
     }
-
   }
 
   @override
@@ -64,15 +63,14 @@ class _editProfileState extends State<editProfile> {
       length: 3,
       child: Scaffold(
         appBar: appBar(name: "Edit Profile", list: [],isBackable: true,function: (){
-          setState(() {
-
-          });
+          setState(() {});
           Navigator.of(context).pop();
         }),
         body: Center(
           child: Column(
             children: [
-              const TabBar(tabs:[
+              const TabBar(
+                  tabs:[
                 Tab(
                   icon: Icon(Icons.email_outlined,color: Color.fromRGBO(119, 117, 245, 1),
                   ),

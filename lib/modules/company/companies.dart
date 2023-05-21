@@ -95,52 +95,5 @@ class _CompaniesState extends State<Companies>{
       ),
     );
   }
-  Widget buildCompanyItem(CompanyModel companyModel)=>Container(
-    decoration: const BoxDecoration(
-      color: Color.fromRGBO(119, 117, 245, 0.2),
-      borderRadius: BorderRadius.all(Radius.circular(20)),
-    ),
-    height: 120,
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
-                Text(companyModel.companyName,
-                  style: const TextStyle(
-                      fontSize:25,
-                      wordSpacing: 7,
-                      fontWeight: FontWeight.w600
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Text(companyModel.companyServices,
-                  style: const TextStyle(
-                    fontSize:17,
-                  ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            onPressed: (){setState(() {}); },
-            icon:  const Icon(
-               Icons.arrow_forward_ios,
-              size: 30,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }
 

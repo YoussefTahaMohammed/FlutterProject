@@ -9,6 +9,7 @@ import 'modules/Login/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'modules/company/companies.dart';
+import 'modules/company/company_profile.dart';
 
 late SharedPreferences sharedPref ;
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: sharedPref.getString("id") == null? "login":"home",
+      initialRoute: sharedPref.getString("id") == null? "login":"companyProfile",
       routes: {
         "login": (context) => Login(),
         "signup": (context) => Signup(),
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
         "company":(context)=> Companies(),
         "services":(context)=> Services(),
         "addService":(context)=> AddService(),
+        "companyProfile":(context)=> CompanyScreen(),
+
       },
     );
   }

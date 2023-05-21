@@ -18,6 +18,12 @@ getServices() async{
   var response =  await _crud.postRequest(linkViewServices, {});
   return response;
 }
+getServicesForCompany(companyId) async{
+  var response =  await _crud.postRequest(linkViewServicesForCompany, {
+    "companyid":companyId
+  });
+  return response;
+}
 getFavServices() async{
   var response =  await _crud.postRequest(linkViewFavServices, {
     "fav": sharedPref.getString("favoriteServices")

@@ -1,23 +1,20 @@
-import 'package:assignment1/main.dart';
+import 'package:assignment1/cubits/service_cubits/fav_service_cubit/fav_services_cubit.dart';
+import 'package:assignment1/cubits/service_cubits/fav_service_cubit/fav_services_states.dart';
+import 'package:assignment1/models/service_model.dart';
 import 'package:assignment1/modules/service/Functions.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ServiceCard extends StatelessWidget {
-  final String serviceName;
-  final String serviceDescription;
-  final int id;
-
+  final ServiceModel serviceModel;
   const ServiceCard({
     Key? key,
-    required this.id,
-    required this.serviceName,
-    required this.serviceDescription,
+    required this.serviceModel
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List <String>isStarred = sharedPref.getString("favoriteServices").toString().split(",");
     return Container(
       decoration: const BoxDecoration(
         color: Color.fromRGBO(119, 117, 245, 0.2),
@@ -33,7 +30,7 @@ class ServiceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    serviceName,
+                    serviceModel.serviceName,
                     style: const TextStyle(
                       fontSize: 25,
                       wordSpacing: 7,
@@ -46,7 +43,7 @@ class ServiceCard extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    serviceDescription,
+                    serviceModel.serviceDescription,
                     style: const TextStyle(
                       fontSize: 17,
                     ),
@@ -56,33 +53,24 @@ class ServiceCard extends StatelessWidget {
                 ],
               ),
             ),
-            StarButton(
-              valueChanged: (isStared) {
-                if(isStared){
-                  if(sharedPref.getString("favoriteServices")=="null"||
-                      sharedPref.getString("favoriteServices")==""){
-                      addFavorite(context,"$id,");
-                      sharedPref.setString("favoriteServices", "$id,");
+            BlocBuilder<FavServicesCubit,FavServiceStates>(
+              builder: (context, state) {
+              FavServicesCubit cubit=FavServicesCubit.get(context);
+              return StarButton(
+                valueChanged:(isStared){
+                  if(isStared) {
+                    cubit.favServices!.add(serviceModel);
                   }
-                  else{
-                    sharedPref.setString("favoriteServices", "${sharedPref.getString("favoriteServices")}$id,");
-                    addFavorite(context, sharedPref.getString("favoriteServices"));
+                  else if (!isStared){
+                    cubit.favServices!.remove(serviceModel);
                   }
-                }
-                else{
-                  List<String> list =sharedPref.getString("favoriteServices").toString().split(",");
-                  list.removeWhere((element) => element == "$id");
-                  String out =list.toString();
-                  out = out.replaceAll("[", "");
-                  out = out.replaceAll("]", "");
-                  out = out.replaceAll(" ", "");
-                  sharedPref.setString("favoriteServices", out);
-                  addFavorite(context, sharedPref.getString("favoriteServices"));
-                }
-              },
-              isStarred: isStarred.contains(id.toString()) ? true: false,
-              iconColor: const Color.fromRGBO(255, 149, 41, 1),
-            ),
+                  cubit.change();
+                  isFav(isStared,context,serviceModel.id);
+                },
+                isStarred:cubit.find(serviceModel.id),
+                iconColor: const Color.fromRGBO(255, 149, 41, 1),
+                  );
+            },)
           ],
         ),
       ),

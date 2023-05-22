@@ -1,12 +1,11 @@
-import 'package:assignment1/modules/service/Functions.dart';
-import 'package:assignment1/modules/service/service_card.dart';
+import 'package:assignment1/models/CompanyModel.dart';
 import 'package:assignment1/shared/colors.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
 class CompanyScreen extends StatelessWidget {
-  CompanyScreen({super.key});
-
+  CompanyScreen({super.key, required this.companyModel});
+  final CompanyModel companyModel;
   final List<String> companyServices = [
     "Industry name 1",
     "Industry name 2",
@@ -225,39 +224,39 @@ class CompanyScreen extends StatelessWidget {
                        padding: const EdgeInsets.all(10.0),
                        child: Column(
                          children: [
-                           Expanded(
-                             child: ListView(
-                               physics: const BouncingScrollPhysics(),
-                               children:[
-                                 FutureBuilder(builder: (BuildContext context, AsyncSnapshot snapshot){
-                                   if(snapshot.hasData){
-                                     if(snapshot.data["status"]=="failed"){
-                                       return const Center(child: Text("There is No Services"));
-                                     }
-                                     return ListView.separated(itemBuilder: (context,i){
-                                       return
-                                         ServiceCard(
-                                           serviceName: snapshot.data['data'][i]['servicename'],
-                                           serviceDescription: snapshot.data['data'][i]['servicedescription'],
-                                           id: snapshot.data['data'][i]['serviceid'],
-                                         );
-                                     },
-                                       physics: const BouncingScrollPhysics(),
-                                       separatorBuilder:(context,index)=> const SizedBox(height:15,),
-                                       itemCount: snapshot.data['data'].length,
-                                       shrinkWrap: true,
-                                     );
-                                   }
-                                   if(snapshot.connectionState == ConnectionState.waiting){
-                                     return const Center(child: Text("Loading...."));
-                                   }
-                                   return const Center(child: Text("No Available Services"));
-                                 },
-                                   future: getServicesForCompany("11"),
-                                 )
-                               ],
-                             ),
-                           ),
+                           // Expanded(
+                           //   child: ListView(
+                           //     physics: const BouncingScrollPhysics(),
+                           //     children:[
+                           //       FutureBuilder(builder: (BuildContext context, AsyncSnapshot snapshot){
+                           //         if(snapshot.hasData){
+                           //           if(snapshot.data["status"]=="failed"){
+                           //             return const Center(child: Text("There is No Services"));
+                           //           }
+                           //           return ListView.separated(itemBuilder: (context,i){
+                           //             return
+                           //               ServiceCard(
+                           //                 serviceName: snapshot.data['data'][i]['servicename'],
+                           //                 serviceDescription: snapshot.data['data'][i]['servicedescription'],
+                           //                 id: snapshot.data['data'][i]['serviceid'],
+                           //               );
+                           //           },
+                           //             physics: const BouncingScrollPhysics(),
+                           //             separatorBuilder:(context,index)=> const SizedBox(height:15,),
+                           //             itemCount: snapshot.data['data'].length,
+                           //             shrinkWrap: true,
+                           //           );
+                           //         }
+                           //         if(snapshot.connectionState == ConnectionState.waiting){
+                           //           return const Center(child: Text("Loading...."));
+                           //         }
+                           //         return const Center(child: Text("No Available Services"));
+                           //       },
+                           //         future: getServicesForCompany("11"),
+                           //       )
+                           //     ],
+                           //   ),
+                           // ),
                          ],
                        ),
                      ),

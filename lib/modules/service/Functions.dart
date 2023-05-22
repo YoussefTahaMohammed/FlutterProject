@@ -1,7 +1,8 @@
 import 'package:assignment1/constant/linkAPI.dart';
 import 'package:assignment1/main.dart';
+import 'package:assignment1/models/service_model.dart';
 import 'package:assignment1/shared/components/crud.dart';
-import 'package:flutter/material.dart';
+
 
 final Crud _crud = Crud();
 
@@ -16,7 +17,7 @@ addService(setState,serviceNameController,serviceDescriptionController) async {
 }
 getServices() async{
   var response =  await _crud.postRequest(linkViewServices, {});
-  return response;
+  return List<ServiceModel>.from((response["data"] as List).map((e) => ServiceModel.fromJson(e)));
 }
 getServicesForCompany(companyId) async{
   var response =  await _crud.postRequest(linkViewServicesForCompany, {
@@ -25,13 +26,17 @@ getServicesForCompany(companyId) async{
   return response;
 }
 getFavServices() async{
-  var response =  await _crud.postRequest(linkViewFavServices, {
-    "fav": sharedPref.getString("favoriteServices")
-  });
-  return response;
+  if(sharedPref.getString("favoriteServices").toString()!="" && sharedPref.getString("favoriteServices")!=null){
+    var response =  await _crud.postRequest(linkViewFavServices, {
+      "fav": sharedPref.getString("favoriteServices")
+    });
+    return List<ServiceModel>.from((response["data"] as List).map((e) => ServiceModel.fromJson(e)));
+  }
+  return []  ;
+
 }
 addFavorite(context,list) async{
-  var response = await _crud.postRequest(linkAddFavorite, {
+  await _crud.postRequest(linkAddFavorite, {
       "id":sharedPref.getString("id").toString(),
       "list":list
   });

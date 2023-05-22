@@ -2,9 +2,9 @@
 
 include "../connect.php";
 
-$statement = $con->prepare("SELECT DISTINCT id,companyname,COUNT(services.serviceid)as number FROM 
-                           `company`left JOIN`services` 
-                           ON company.id = services.companyid GROUP by id,companyname");
+$statement = $con->prepare("SELECT DISTINCT users.contactpersonname,c.id,companyname,companyaddress,companysize,companyindustry,c.number
+FROM (SELECT DISTINCT company.id,companyname,companyaddress,companysize,companyindustry,COUNT(services.serviceid)as number FROM `company`left JOIN`services` ON company.id = services.companyid GROUP by id,companyname)AS c ,users
+WHERE users.companyid=c.id");
  $statement->execute();
 
 

@@ -1,9 +1,31 @@
+
 class CompanyModel {
   String companyName;
-  String companyServices;
+  String companySize;
+  String companyAddress;
+  String companyIndustry;
+  String contactPersonName;
+  int companyServicesCount;
+  int companyId;
 
   CompanyModel({
     required this.companyName,
-    required this.companyServices,
+    required this.companyServicesCount,
+    required this.companySize,
+    required this.companyAddress,
+    required this.companyIndustry,
+    required this.companyId,
+    required this.contactPersonName,
   });
+
+  factory CompanyModel.fromJson(Map<String,dynamic>json)=>CompanyModel(
+      companyName: json["companyname"]??"",
+      companyServicesCount: json["number"]?? 0,
+      companyAddress: json["companyaddress"]??"",
+      companyIndustry: json["companyindustry"]??"",
+      companySize: json["companysize"]??"",
+      companyId: json["id"]??0,
+      contactPersonName: json["contactpersonname"]??"",
+
+  );
 }

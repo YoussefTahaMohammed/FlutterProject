@@ -1,55 +1,42 @@
-import 'package:assignment1/modules/service/Functions.dart';
+import 'package:assignment1/cubits/service_cubits/fav_service_cubit/fav_services_cubit.dart';
+import 'package:assignment1/cubits/service_cubits/fav_service_cubit/fav_services_states.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'service_card.dart';
 
-class FavouriteServices extends StatefulWidget {
+class FavouriteServices extends StatelessWidget {
   const FavouriteServices({Key? key}) : super(key: key);
-
-  @override
-  State<FavouriteServices> createState() => _FavouriteServicesState();
-}
-
-class _FavouriteServicesState extends State<FavouriteServices> {
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView(
+    return BlocBuilder<FavServicesCubit,FavServiceStates>(
+      builder: (context, state) {
+        FavServicesCubit cubit = FavServicesCubit.get(context);
+        if (state is GetFavServicesLoadingState){
+          return const CircularProgressIndicator();
+        }
+        if (cubit.favServices!.isEmpty){
+          return const Center(
+            child: Text(
+                "There is No Services"
+            ),
+          );
+        }
+        if (cubit.favServices!.isNotEmpty){
+          return ListView.separated(
+            itemCount:cubit.favServices!.length ,
             physics: const BouncingScrollPhysics(),
-            children:[
-              FutureBuilder(builder: (BuildContext context, AsyncSnapshot snapshot){
-                if(snapshot.hasData){
-                  if(snapshot.data["status"]=="failed"){
-                    return const Center(child: Text("There is No Services"));
-                  }
-                  return ListView.separated(itemBuilder: (context,i){
-                    return
-                      ServiceCard(
-                          serviceName: snapshot.data['data'][i]['servicename'],
-                          serviceDescription: snapshot.data['data'][i]['servicedescription'],
-                          id: snapshot.data['data'][i]['serviceid'],
-                      );
-                  },
-                    physics: const BouncingScrollPhysics(),
-                    separatorBuilder:(context,index)=> const SizedBox(height:15,),
-                    itemCount: snapshot.data['data'].length,
-                    shrinkWrap: true,
-                  );
-                }
-                if(snapshot.connectionState == ConnectionState.waiting){
-                  return const Center(child: Text("Loading...."));
-                }
-                return const Center(child: Text("No Available Services"));
-              },
-                future: getFavServices(),
-              )
-            ],
-          ),
-        ),
-      ],
+            itemBuilder: (BuildContext context, int index) {
+              return ServiceCard(serviceModel: cubit.favServices![index]);
+            }, separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(height: 10);
+          },
+
+          );
+        }
+        return Container();
+      },
     );
   }
+
 }
+

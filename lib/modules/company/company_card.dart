@@ -1,21 +1,22 @@
+import 'package:assignment1/models/CompanyModel.dart';
 import 'package:flutter/material.dart';
 
 class CompanyCard extends StatelessWidget {
-  final String companyName;
-  final String companyServices;
-  final int id;
+  final CompanyModel companyModel;
+
   const CompanyCard({
     Key? key,
-    required this.id,
-    required this.companyName,
-    required this.companyServices,
+    required this.companyModel,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return InkWell(
-      onTap: (){},
+      onTap: (){
+        Navigator.of(context).pushNamed("companyProfile",arguments: );
+      },
       child: Container(
         decoration: const BoxDecoration(
           color: Color.fromRGBO(119, 117, 245, 0.2),
@@ -30,7 +31,7 @@ class CompanyCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:  [
-                    Text(companyName,
+                    Text(companyModel.companyName,
                       style: const TextStyle(
                           fontSize:25,
                           wordSpacing: 7,
@@ -42,7 +43,7 @@ class CompanyCard extends StatelessWidget {
                     const SizedBox(
                       height: 6,
                     ),
-                    Text(companyServices,
+                    Text(companyModel.companyServicesCount.toString(),
                       style: const TextStyle(
                         fontSize:17,
                       ),

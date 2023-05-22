@@ -27,19 +27,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: sharedPref.getString("id") == null? "login":"companyProfile",
+      initialRoute: sharedPref.getString("id") == null? "login":"home",
       routes: {
         "login": (context) => Login(),
-        "signup": (context) => Signup(),
-        "profile": (context) => Profile(),
-        "home": (context) => Home(),
-        "editProfile": (context) => editProfile(),
-        "company":(context)=> Companies(),
-        "services":(context)=> Services(),
-        "addService":(context)=> AddService(),
-        "companyProfile":(context)=> CompanyScreen(),
+        "signup": (context) => const Signup(),
+        "profile": (context) => const Profile(),
+        "home": (context) => const Home(),
+        "editProfile": (context) => const editProfile(),
+        "company":(context)=> const Companies(),
+        "services":(context)=> const Services(),
+        "addService":(context)=> const AddService(),
+        "companyProfile":(context)=> CompanyScreen(companyModel: ),
 
       },
+
     );
   }
 }

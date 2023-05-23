@@ -11,15 +11,15 @@ class FavouriteServices extends StatelessWidget {
     return BlocBuilder<FavServicesCubit,FavServiceStates>(
       builder: (context, state) {
         FavServicesCubit cubit = FavServicesCubit.get(context);
-        if (state is GetFavServicesLoadingState){
-          return const CircularProgressIndicator();
-        }
         if (cubit.favServices!.isEmpty){
           return const Center(
             child: Text(
                 "There is No Services"
             ),
           );
+        }
+        if (state is GetFavServicesLoadingState){
+          return const CircularProgressIndicator();
         }
         if (cubit.favServices!.isNotEmpty){
           return ListView.separated(

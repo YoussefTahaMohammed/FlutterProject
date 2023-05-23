@@ -1,5 +1,6 @@
 import 'package:assignment1/constant/linkAPI.dart';
 import 'package:assignment1/main.dart';
+import 'package:assignment1/models/CompanyModel.dart';
 import 'package:assignment1/models/service_model.dart';
 import 'package:assignment1/shared/components/crud.dart';
 
@@ -16,23 +17,42 @@ addService(setState,serviceNameController,serviceDescriptionController) async {
   return response;
 }
 getServices() async{
+  List<ServiceModel> result =[];
   var response =  await _crud.postRequest(linkViewServices, {});
-  return List<ServiceModel>.from((response["data"] as List).map((e) => ServiceModel.fromJson(e)));
+  if(response['status'] != "failed") {
+    return List<ServiceModel>.from(
+        (response["data"] as List).map((e) => ServiceModel.fromJson(e)));
+  }
+  return result;
 }
 getServicesForCompany(companyId) async{
+  List<ServiceModel> result =[];
   var response =  await _crud.postRequest(linkViewServicesForCompany, {
-    "companyid":companyId
+    "companyid":companyId.toString()
   });
-  return response;
+  if(response['status'] != "failed"){
+    result = List<ServiceModel>.from((response["data"] as List).map((e) => ServiceModel.fromJson(e)));
+  }
+  return result;
+}
+getCompanyFromService(companyId) async {
+  var response = await _crud.postRequest(linkGetCompany, {
+    "companyid": companyId.toString()
+  });
+  return CompanyModel.fromJson(response['data']);
 }
 getFavServices() async{
-  if(sharedPref.getString("favoriteServices").toString()!="" && sharedPref.getString("favoriteServices")!=null){
+  List<ServiceModel> result =[];
+  if(sharedPref.getString("favoriteServices").toString()!="" && sharedPref.getString("favoriteServices").toString().toLowerCase()!="null"){
     var response =  await _crud.postRequest(linkViewFavServices, {
       "fav": sharedPref.getString("favoriteServices")
     });
-    return List<ServiceModel>.from((response["data"] as List).map((e) => ServiceModel.fromJson(e)));
+    if(response['status'] != "failed") {
+      result = List<ServiceModel>.from(
+          (response["data"] as List).map((e) => ServiceModel.fromJson(e)));
+    }
   }
-  return []  ;
+  return result  ;
 
 }
 addFavorite(context,list) async{

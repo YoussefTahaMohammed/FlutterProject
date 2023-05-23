@@ -1,21 +1,20 @@
 import 'package:assignment1/models/CompanyModel.dart';
+import 'package:assignment1/modules/company/company_profile.dart';
 import 'package:flutter/material.dart';
 
 class CompanyCard extends StatelessWidget {
   final CompanyModel companyModel;
-
   const CompanyCard({
     Key? key,
     required this.companyModel,
-
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return InkWell(
-      onTap: (){
-        Navigator.of(context).pushNamed("companyProfile",arguments: );
+      onTap: (){  
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyProfile(companyModel: companyModel,),));
       },
       child: Container(
         decoration: const BoxDecoration(
@@ -43,7 +42,7 @@ class CompanyCard extends StatelessWidget {
                     const SizedBox(
                       height: 6,
                     ),
-                    Text(companyModel.companyServicesCount.toString(),
+                    Text("Number of Services: ${companyModel.companyServicesCount.toString()}",
                       style: const TextStyle(
                         fontSize:17,
                       ),
@@ -53,13 +52,10 @@ class CompanyCard extends StatelessWidget {
                   ],
                 ),
               ),
-              IconButton(
-                onPressed: (){ },
-                icon:  const Icon(
+              const Icon(
                   Icons.arrow_forward_ios,
                   size: 30,
                 ),
-              ),
             ],
           ),
         ),

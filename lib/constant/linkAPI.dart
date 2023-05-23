@@ -17,3 +17,4 @@ const String linkViewFavServices  = "$linkServerName/service/viewFavServices.php
 const String linkViewServicesForCompany = "$linkServerName/service/viewForCompanyServices.php";
 const String linkViewCompanies    = "$linkServerName/service/viewCompanies.php";
 const String linkAddFavorite      = "$linkServerName/service/addFavorite.php";
+const String linkGetCompany      = "$linkServerName/company/getCompany.php";

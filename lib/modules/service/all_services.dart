@@ -10,16 +10,16 @@ class AllServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AllServicesCubit,AllServiceStates>(
-        builder: (context, state) {
-          if (state is GetAllServicesLoadingState){
-            return const CircularProgressIndicator();
-          }
+            builder: (context, state) {
           if (state is GetAllServicesSuccessState && state.services.isEmpty){
             return const Center(
               child: Text(
                   "There is No Services"
               ),
             );
+          }
+          if (state is GetAllServicesLoadingState){
+            return const CircularProgressIndicator();
           }
           if (state is GetAllServicesSuccessState){
             return ListView.separated(

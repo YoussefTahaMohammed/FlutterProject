@@ -25,13 +25,14 @@ Widget defaultButton({
   Color buttonColor = const Color.fromRGBO(119, 117, 245, 1),
   Color textColor = Colors.white,
   bool isUpperCase = true,
+  double height = 60,
   double textFontSize = 20,
   required VoidCallback function,
   required String text
 }) =>
     Container(
       width: width,
-      height: 60,
+      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
@@ -54,7 +55,7 @@ Widget defaultButton({
         child: Text(isUpperCase ? text.toUpperCase() : text,
           style:  TextStyle(
               color: textColor,
-              fontSize: 20
+              fontSize: textFontSize,
           ),
         ),
       ),

@@ -11,11 +11,13 @@ $companyName	 = filterReq("companyname");
 $companyAddress = filterReq("companyaddress");
 $companySize	 = filterReq("companysize");
 $companyIndustry	 = filterReq("companyindustry");
+$lat	 = filterReq("lat");
+$lng	 = filterReq("lng");
 
-$statement = $con->prepare("INSERT INTO `company`(`companyname`, `companyaddress`, `companysize`, `companyindustry`) 
-VALUES (? ,? ,? ,?)
+$statement = $con->prepare("INSERT INTO `company`(`companyname`, `companyaddress`, `companysize`, `companyindustry`,`lat`,`lng`) 
+VALUES (? ,? ,? ,?,?,?)
 ");
-$statement-> execute(array($companyName,$companyAddress,$companySize,$companyIndustry));
+$statement-> execute(array($companyName,$companyAddress,$companySize,$companyIndustry,$lat,$lng));
 
 
 $count = $statement->rowCount() ; 
@@ -54,5 +56,4 @@ else{
    echo json_encode(array("status"=>"failed"));
 
 }
-
 

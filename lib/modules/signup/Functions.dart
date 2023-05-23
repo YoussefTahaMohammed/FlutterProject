@@ -67,7 +67,7 @@ Future<String?> validPhone(context,contactPersonPhone,setState) async{
   }
 }
 
-signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,String? dropdownValue,selectedItems) async {
+signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,String? dropdownValue,selectedItems,lat,lng) async {
   isLoading = true;
   var response = await _crud.postRequest(linkSignup, {
     "email" : email.text,
@@ -78,6 +78,8 @@ signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyN
     "companyaddress" : companyAddress.text,
     "companysize":dropdownValue ?? "" ,
     "companyindustry":selectedItems,
+    "lat":lat,
+    "lng":lng,
   });
   if (response['status'] == "success"){
     isLoading =false;

@@ -80,8 +80,8 @@ class _AddServiceState extends State<AddService> {
                       ],
                     ),
                     child: OutlinedButton(
-                      onPressed: (){
-                        addService(setState,serviceNameController,serviceDescriptionController);
+                      onPressed: () async {
+                        await addService(setState,serviceNameController,serviceDescriptionController);
                         Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
                       },
                       style: OutlinedButton.styleFrom(

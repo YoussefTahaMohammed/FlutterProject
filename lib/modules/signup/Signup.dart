@@ -1,8 +1,10 @@
 import 'package:assignment1/Industry.dart';
 import 'package:assignment1/constant/menus.dart';
+import 'package:assignment1/modules/map/map_service/get_latlng.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'Functions.dart';
 
 class Signup extends StatefulWidget {
@@ -21,7 +23,6 @@ class _SignupState extends State<Signup> {
         return MultiSelect(items: industryList());
       },
     );
-
     if (results != null) {
       setState(() {
         _selectedItems = results;
@@ -89,7 +90,8 @@ class _SignupState extends State<Signup> {
                     if(!isLastStep){
                       if (stepperKey[_activeStepIndex].currentState!.validate()) {
                         if(_activeStepIndex == 0){
-                          errorEmail   = await validEmail(context, email, setState);                        if(errorEmail == null ) {
+                          errorEmail   = await validEmail(context, email, setState);
+                          if(errorEmail == null ) {
                             if(confirmPassword(pass.text, confirmPass.text)){
                               controlsDetails.onStepContinue!();
                             }
@@ -117,7 +119,7 @@ class _SignupState extends State<Signup> {
                         }
                       }
                     }else{
-                      await signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue,_selectedItems.toString());
+                      await signup(setState,context,email,pass,contactPersonName,contactPersonPhone,companyName,companyAddress,_dropdownValue,_selectedItems.toString(),lat,lng);
                     }
                   },
                   textFontSize: 15,
@@ -180,9 +182,7 @@ class _SignupState extends State<Signup> {
             SingleChildScrollView(
               child: FlutterPwValidator(
                   controller: pass,
-                  minLength: 8,
-                  uppercaseCharCount: 1,
-                  numericCharCount: 1,
+                  minLength: 7,
                   width: 400,
                   height:100,
                   onSuccess: (){},
@@ -229,6 +229,75 @@ class _SignupState extends State<Signup> {
                 icon: const Icon(Icons.edit_location_alt_outlined),
                 text: "Company Address",
                 isRequired: true
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:  [
+                const Text("Location: ",
+                style: TextStyle(
+                  fontSize:18,
+
+                ),
+                ),
+                defaultButton(
+                  width: 130,
+                  height: 25,
+                  function: () async {
+                    LatLng? coordinates = await getCoordinatesFromAddress(companyAddress.text);
+                    setState(() {
+                      lat = coordinates!.latitude.toString();
+                      lng = coordinates.longitude.toString();
+                    });
+                  },
+                  text:"Location",
+                  textFontSize: 18
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Latitude : ',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        child: Text(lat,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 18)),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Longitude : ',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        child: Text(lng,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 18)),
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,

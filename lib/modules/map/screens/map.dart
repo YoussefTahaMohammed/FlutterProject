@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:collection';
 import 'package:assignment1/modules/map/map_service/location.dart';
+import 'package:assignment1/shared/colors.dart';
+import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -74,9 +76,7 @@ class _MapScreenState extends State<MapScreen> {
         }
       } else if (distance <= 50) {
         time = distance / 30; // assuming average speed of 30km/h
-
         time = time * 60;
-
         if (time >= 60) {
           time = time / 60;
           type = 'hr';
@@ -86,9 +86,6 @@ class _MapScreenState extends State<MapScreen> {
           timest = time.toStringAsFixed(0);
         }
       }
-
-      
-      
     });
   }
 
@@ -128,23 +125,12 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-        ),
-        title: const Text(
-          'Our Map',
-          style: TextStyle(fontSize: 26, color: Colors.white),
-        ),
+      appBar:  appBar(
+        name: "Location",
+        list: [],
+        function: (){
+          Navigator.of(context).pop();
+        }
       ),
       body: position != null
           ? Stack(children: [
@@ -171,7 +157,7 @@ class _MapScreenState extends State<MapScreen> {
             calculateDistanceAndTime();
 
           },
-          backgroundColor: Colors.purple,
+          backgroundColor: defaultColor,
           child: const Icon(
             Icons.directions,
             color: Colors.white,

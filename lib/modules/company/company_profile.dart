@@ -1,11 +1,13 @@
 import 'package:assignment1/cubits/service_cubits/company_service_cubit/company_service_cubit.dart';
 import 'package:assignment1/cubits/service_cubits/company_service_cubit/company_service_states.dart';
 import 'package:assignment1/models/CompanyModel.dart';
+import 'package:assignment1/modules/map/screens/map.dart';
 import 'package:assignment1/modules/service/service_card.dart';
 import 'package:assignment1/shared/colors.dart';
 import 'package:assignment1/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CompanyProfile extends StatelessWidget {
   const CompanyProfile({super.key, required this.companyModel});
@@ -240,6 +242,21 @@ class CompanyProfile extends StatelessWidget {
                                     ),
                                   ),
                                 ],
+                              ),
+                              const SizedBox(height: 10,),
+                              defaultButton(
+                                  function: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => MapScreen(
+                                  lat: companyModel.lat,
+                                  lng: companyModel.lng,
+                                  info: companyModel.companyAddress,
+                                  cameraPositionn: CameraPosition(
+                                    target:LatLng(companyModel.lat,companyModel.lng) ,
+                                    zoom:20,
+                                  )
+                              ),));},
+                                  text: "Go Location",
+                                height: 50,
+                                width: 180
                               )
                             ],
                           ),

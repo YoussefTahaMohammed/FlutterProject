@@ -3,7 +3,7 @@
 include "../connect.php";
 $id = filterReq("companyid");
 
-$statement = $con->prepare("SELECT users.contactpersonname,company.id,companyname,companyaddress,companysize,companyindustry
+$statement = $con->prepare("SELECT users.contactpersonname,company.id,companyname,companyaddress,companysize,companyindustry,lat,lng
  FROM `company`,`users` where company.id = ? and users.companyid = company.id");
  $statement->execute(array($id));
 

@@ -28,7 +28,6 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
 
-
     return Column(
       children: [
         Center(

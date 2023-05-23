@@ -1,4 +1,6 @@
+import 'package:assignment1/shared/colors.dart';
 import 'package:flutter/material.dart';
+
 
 class DistanceAndTime extends StatelessWidget {
   final String time;
@@ -31,14 +33,14 @@ class DistanceAndTime extends StatelessWidget {
                     elevation: 6,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    margin:  const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     color: Colors.white,
                     child: ListTile(
                       dense: true,
                       horizontalTitleGap: 0,
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.access_time_filled_outlined,
-                        color:Colors.purple,
+                        color:defaultColor,
                         size: 26,
                       ),
                       title: Text(
@@ -66,9 +68,9 @@ class DistanceAndTime extends StatelessWidget {
                     child: ListTile(
                       dense: true,
                       horizontalTitleGap: 0,
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.directions_car,
-                        color:Colors.purple,
+                        color:defaultColor,
                         size: 27,
                       ),
                       title: Text(

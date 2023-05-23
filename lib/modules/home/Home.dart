@@ -31,7 +31,6 @@ class _HomeState extends State<Home> {
               ),
               defaultButton(
                   function: (){
-
                     Navigator.of(context).pushNamed("company");
                   }, text: "Companies"),
               const SizedBox(

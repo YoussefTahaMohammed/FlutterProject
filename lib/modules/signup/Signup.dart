@@ -237,7 +237,6 @@ class _SignupState extends State<Signup> {
                 const Text("Location: ",
                 style: TextStyle(
                   fontSize:18,
-
                 ),
                 ),
                 defaultButton(

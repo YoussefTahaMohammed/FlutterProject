@@ -7,6 +7,8 @@ class CompanyModel {
   String contactPersonName;
   int companyServicesCount;
   int companyId;
+  double lat;
+  double lng;
 
   CompanyModel({
     required this.companyName,
@@ -16,6 +18,8 @@ class CompanyModel {
     required this.companyIndustry,
     required this.companyId,
     required this.contactPersonName,
+    required this.lat,
+    required this.lng,
   });
 
   factory CompanyModel.fromJson(Map<String,dynamic>json)=>CompanyModel(
@@ -26,6 +30,8 @@ class CompanyModel {
       companySize: json["companysize"]??"",
       companyId: json["id"]??0,
       contactPersonName: json["contactpersonname"]??"",
+      lat:json["lat"] ?? 0,
+      lng:json["lng"] ?? 0,
 
   );
 }

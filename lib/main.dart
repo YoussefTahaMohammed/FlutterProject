@@ -3,13 +3,11 @@ import 'package:assignment1/cubits/company_cubit/company_cubit.dart';
 import 'package:assignment1/modules/editProfile/Profile.dart';
 import 'package:assignment1/modules/editProfile/EditProfile.dart';
 import 'package:assignment1/modules/home/Home.dart';
-import 'package:assignment1/modules/map/screens/map.dart';
 import 'package:assignment1/modules/service/add_service.dart';
 import 'package:assignment1/modules/service/services.dart';
 import 'package:assignment1/modules/signup/Signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'modules/Login/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'modules/company/companies.dart';
@@ -31,7 +29,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: sharedPref.getString("id") == null? "login":"home",
+        initialRoute:sharedPref.getString("id") == null? "login":"home",
         routes: {
           "login": (context) => Login(),
           "signup": (context) => const Signup(),
@@ -41,14 +39,6 @@ class MyApp extends StatelessWidget {
           "company":(context)=> const Companies(),
           "services":(context)=> const Services(),
           "addService":(context)=> const AddService(),
-          "googleMap":(context)=>  const MapScreen(
-              lat: 30.044430,
-              lng: 31.2357,
-              info: "Cairo",
-              cameraPositionn: CameraPosition(
-                  target: LatLng(30.044430,31.2357),
-                  zoom: 14
-              ))
           //"companyProfile":(context)=> CompanyScreen( ),
         },
 

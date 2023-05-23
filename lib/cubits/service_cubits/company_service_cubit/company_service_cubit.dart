@@ -1,5 +1,4 @@
 import 'package:assignment1/cubits/service_cubits/company_service_cubit/company_service_states.dart';
-import 'package:assignment1/models/service_model.dart';
 import 'package:assignment1/modules/service/Functions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

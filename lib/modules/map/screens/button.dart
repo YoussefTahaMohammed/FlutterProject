@@ -33,8 +33,6 @@ class _MapState extends State<Map> {
         Center(
           child: MaterialButton(
             onPressed: (){},
-
-
           ),
         )
       ],

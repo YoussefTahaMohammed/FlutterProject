@@ -1,4 +1,3 @@
-
 class CompanyModel {
   String companyName;
   String companySize;

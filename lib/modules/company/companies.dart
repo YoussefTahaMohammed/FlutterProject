@@ -61,8 +61,7 @@ class Companies extends StatelessWidget {
                       ),
                     );
                   }
-                  if (state is GetCompanySearchedState&&cubit.filteredCompanies!=null&&cubit.filteredCompanies!.isEmpty)
-                  {
+                  if (state is GetCompanySearchedState&&cubit.filteredCompanies!=null&&cubit.filteredCompanies!.isEmpty) {
                     return const Text("empty");
                   }
                   if (cubit.companies!.isNotEmpty ){

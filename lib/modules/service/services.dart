@@ -1,5 +1,4 @@
 import 'package:assignment1/cubits/service_cubits/all_service_cubit/all_services_cubit.dart';
-import 'package:assignment1/cubits/service_cubits/company_service_cubit/company_service_cubit.dart';
 import 'package:assignment1/cubits/service_cubits/fav_service_cubit/fav_services_cubit.dart';
 import 'package:assignment1/cubits/service_cubits/fav_service_cubit/fav_services_states.dart';
 import 'package:assignment1/modules/service/all_services.dart';

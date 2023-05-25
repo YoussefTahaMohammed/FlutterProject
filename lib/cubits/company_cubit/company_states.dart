@@ -1,4 +1,3 @@
-import 'package:assignment1/models/CompanyModel.dart';
 
 abstract class CompanyStates {}
 class CompanyInitialState extends CompanyStates{}

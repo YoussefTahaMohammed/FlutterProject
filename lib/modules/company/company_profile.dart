@@ -244,19 +244,21 @@ class CompanyProfile extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 10,),
-                              defaultButton(
-                                  function: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => MapScreen(
-                                  lat: companyModel.lat,
-                                  lng: companyModel.lng,
-                                  info: companyModel.companyAddress,
-                                  cameraPositionn: CameraPosition(
-                                    target:LatLng(companyModel.lat,companyModel.lng) ,
-                                    zoom:20,
-                                  )
-                              ),));},
-                                  text: "Go Location",
-                                height: 50,
-                                width: 180
+                              Center(
+                                child: defaultButton(
+                                    function: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => MapScreen(
+                                    lat: companyModel.lat,
+                                    lng: companyModel.lng,
+                                    info: companyModel.companyAddress,
+                                    cameraPositionn: CameraPosition(
+                                      target:LatLng(companyModel.lat,companyModel.lng) ,
+                                      zoom:20,
+                                    )
+                                ),));},
+                                    text: "Go Location",
+                                  height: 50,
+                                  width: 180
+                                ),
                               )
                             ],
                           ),

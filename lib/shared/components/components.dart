@@ -117,14 +117,15 @@ Widget defaultTextButton({
 );
 
 Widget defaultDropDownList({
+  String? hint,
   required List<DropdownMenuItem> dropdownItemsList,
   String? value,
-  required String text,
+  String? text,
   bool isRequired =false,
   required  function(var x),
 })=> DropdownButtonFormField(
     items: dropdownItemsList ,
-    hint: const Text("Company Size"),
+    hint:  hint!=null ? Text(hint) : const Text("")  ,
     value: value,
     onChanged: function,
     isExpanded: true,

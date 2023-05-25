@@ -1,5 +1,3 @@
-import 'package:assignment1/models/service_model.dart';
-
 abstract class FavServiceStates {}
 class FavServiceInitialState extends FavServiceStates{}
 class GetFavServicesLoadingState extends FavServiceStates{}

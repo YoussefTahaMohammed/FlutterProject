@@ -52,6 +52,18 @@ class ServiceCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                       serviceModel.companyName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
                       height: 6,
                     ),
                     Text(
@@ -59,7 +71,7 @@ class ServiceCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 17,
                       ),
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

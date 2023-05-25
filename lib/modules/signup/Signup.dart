@@ -182,7 +182,9 @@ class _SignupState extends State<Signup> {
             SingleChildScrollView(
               child: FlutterPwValidator(
                   controller: pass,
-                  minLength: 7,
+                  minLength: 8,
+                  uppercaseCharCount: 1,
+                  specialCharCount: 1,
                   width: 400,
                   height:100,
                   onSuccess: (){},
